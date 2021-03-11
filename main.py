@@ -21,6 +21,8 @@ client = commands.Bot(command_prefix="rpi ", intents=discord.Intents.all())
 async def on_ready():
     print('Bot is ready')
 
+
+## Exec Command
 @client.command()
 async def exec(ctx,*,command):
   NoCommands = ['rm', 'sudo', 'bash']
@@ -38,6 +40,8 @@ async def exec(ctx,*,command):
     output = subprocess.getoutput(command)
     await ctx.send(f'```\n{output.strip()}\n```')
 
+
+## Search Command
 @client.command(name='search')
 async def _search(ctx, NumberOfSearchResults,*, SearchTerm): 
   print(SearchTerm)
@@ -49,6 +53,8 @@ async def _search(ctx, NumberOfSearchResults,*, SearchTerm):
 
   await ctx.send(SearchResultsMessage + '\n```')
 
+
+## Clear Command
 @client.command()
 @commands.has_permissions(manage_messages=True)
 async def clear(ctx, number):
@@ -58,6 +64,8 @@ async def clear(ctx, number):
   time.sleep(5)
   await InfoMessage.delete()
 
+
+## Ping Command
 @client.command()
 async def ping(ctx):
   await ctx.send('pong :ping_pong:')
@@ -66,26 +74,26 @@ async def ping(ctx):
   time.sleep(1)
   await ctx.send(f'Nvm, The latency is: `{round(client.latency * 1000)}` ms')
 
+
+## Kick Command
 @client.command()
 @commands.has_permissions(administrator=True)
 async def kick(ctx, member : discord.Member,*, reason=None):
   await member.kick(reason=reason)
   await ctx.send(f'{member} has been kicked from the server. Reason for kick is {reason}')
 
+
+## Ban Command
 @client.command()
 @commands.has_permissions(administrator=True)
 async def ban(ctx, member : discord.Member,*, reason=None):
   await member.ban(reason=reason)
   await ctx.send(f'{member} has been banned from the server. Reason for ban is {reason}')
 
+
 @client.command()
 async def test(ctx):
-  channel = ctx.message.channel
-  Testmsg = await channel.send('Testing')
-  time.sleep(5)
-  await Testmsg.delete()
-
-
+  pass
 
 #keep_alive()
 client.run(os.getenv('TOKEN'))
